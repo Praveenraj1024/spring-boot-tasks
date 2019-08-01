@@ -53,7 +53,6 @@ public class TrackController {
     public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) {
         //Used to extract the data from query parameter.
         //Returns the User object as the response for the given request.
-//        trackService.deleteTrackById(id);
         Optional<Track> optionalTrack = trackService.deleteTrackById(id);
         if (optionalTrack.isPresent()){
             return new ResponseEntity<Track>(optionalTrack.get(), HttpStatus.OK);
