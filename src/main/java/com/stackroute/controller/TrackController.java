@@ -62,9 +62,9 @@ public class TrackController {
     }
 
     @PutMapping("track/{id}")
-    public ResponseEntity<?> updateTrackById(@RequestBody Track track, @PathVariable int id){
-        Track track = trackService.updateTrack(id);
-        return new ResponseEntity<>(track, HttpStatus.OK);
+    public ResponseEntity<?> updateTrackById(@PathVariable int id, @RequestBody Track track){
+        Track updatedTrack = trackService.updateTrack(id, track);
+        return new ResponseEntity<>(updatedTrack, HttpStatus.OK);
 
     }
 
