@@ -39,20 +39,21 @@ public class TrackServiceImplementation implements TrackService {
     }
 
     @Override
-    public Track deleteTrackById(int id) {
+    public Optional<Track> deleteTrackById(int id) {
         Optional<Track> retrievedTrack = trackRepository.findById(id);
         if (retrievedTrack.isPresent()){
-            Track track = getTrackById(id);
+//            Track track = getTrackById(id);
             trackRepository.deleteById(id);
 //            System.out.println(retrievedTrack.get().getName());
-            return track;
+//            return track;
         }
 //        System.out.println(retrievedTrack.get().getName());
-        return null;
+        return retrievedTrack;
     }
 
     @Override
     public Track updateTrack(int id) {
+//        trackRepository
         Track track = trackRepository.findById(id).get();
         return track;
     }

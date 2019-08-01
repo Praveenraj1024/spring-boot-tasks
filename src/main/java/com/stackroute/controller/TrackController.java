@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 //Creates RESTful web services
@@ -52,16 +53,16 @@ public class TrackController {
     public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) {
         //Used to extract the data from query parameter.
         //Returns the User object as the response for the given request.
-        trackService.deleteTrackById(id);
-        Track track = trackService.deleteTrackById(id);
-        System.out.println(track.getName());
-        return new ResponseEntity<Track>(track, HttpStatus.OK);
+//        trackService.deleteTrackById(id);
+        Optional<Track> optionalTrack = trackService.deleteTrackById(id);
+        if (optionalTrack.isPresent()){
+            return new ResponseEntity<Track>(optionalTrack.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Unmatched id", HttpStatus.OK);
     }
 
-    @PatchMapping("track/{id}")
-    public ResponseEntity<?> updateTrackById(@RequestBody @PathVariable int id){
-        //Used to extract the data from query parameter.
-        //Returns the User object as the response for the given request.
+    @PutMapping("track/{id}")
+    public ResponseEntity<?> updateTrackById(@RequestBody Track track, @PathVariable int id){
         Track track = trackService.updateTrack(id);
         return new ResponseEntity<>(track, HttpStatus.OK);
 
