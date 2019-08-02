@@ -35,6 +35,10 @@ public class TrackController {
         return new ResponseEntity<>(savedTrack, HttpStatus.OK);
     }
 
+    /**
+     * @param id stores the track id,
+     * @return returns the track which matches with the given id.
+     */
     @GetMapping("track/{id}")
     public ResponseEntity<?> getTrackById(@PathVariable int id){
         //Used to extract the data from query parameter.
@@ -43,12 +47,19 @@ public class TrackController {
         return new ResponseEntity<>(retrievedTrack, HttpStatus.OK);
     }
 
+    /**
+     * @return the response entity with the track list.
+     */
     @GetMapping("track")
     public ResponseEntity<?> getAllTrack(){
         List<Track> trackList = trackService.getAllTracks();
         return new ResponseEntity<>(trackList, HttpStatus.OK);
     }
 
+    /**
+     * @param id stores the track id,
+     * @return the response entity with track object or null.
+     */
     @DeleteMapping("track/{id}")
     public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) {
         //Used to extract the data from query parameter.
@@ -60,11 +71,26 @@ public class TrackController {
         return new ResponseEntity<>("Unmatched id", HttpStatus.OK);
     }
 
+    /**
+     * @param id stores the track id,
+     * @param track stores the track object which is created by using the data in the request body
+     * @return the response entity with the updated track.
+     */
     @PutMapping("track/{id}")
     public ResponseEntity<?> updateTrackById(@PathVariable int id, @RequestBody Track track){
         Track updatedTrack = trackService.updateTrack(id, track);
         return new ResponseEntity<>(updatedTrack, HttpStatus.OK);
 
+    }
+
+    /**
+     * @param name stores the track name which we want to search.
+     * @return the response with selected track list.
+     */
+    @GetMapping("tracks/{name}")
+    public ResponseEntity<?> getTrackByName(@PathVariable String name){
+        List<Track> trackList = trackService.getTracksByName(name);
+        return new ResponseEntity<>(trackList, HttpStatus.OK);
     }
 
 

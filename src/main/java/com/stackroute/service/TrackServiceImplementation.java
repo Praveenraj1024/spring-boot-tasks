@@ -54,4 +54,11 @@ public class TrackServiceImplementation implements TrackService {
         track.setName(track.getName());
         return trackRepository.save(track);
     }
+
+    @Override
+    public List<Track> getTracksByName(String trackName) {
+        List<Track> trackList = trackRepository.getTracksByName(trackName);
+        return trackList;
+    }
+
 }
