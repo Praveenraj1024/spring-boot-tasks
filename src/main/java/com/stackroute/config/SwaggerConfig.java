@@ -12,6 +12,9 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+    /**
+     * @return the docket object with mentioned basepackage and path.
+     */
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
