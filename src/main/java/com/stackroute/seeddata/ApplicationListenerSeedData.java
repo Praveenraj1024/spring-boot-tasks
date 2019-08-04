@@ -5,9 +5,12 @@ import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,6 +18,8 @@ import org.springframework.stereotype.Component;
  * track details in h2 db.
  */
 @Component
+@PropertySource("classpath:application.properties")
+//Used to specify the path of the resource file.
 public class ApplicationListenerSeedData implements ApplicationListener<ContextRefreshedEvent> {
 
     @Qualifier("trackService")
@@ -26,15 +31,24 @@ public class ApplicationListenerSeedData implements ApplicationListener<ContextR
         this.trackService = trackService;
     }
 
+    @Value("${track1.id}")
+    private int trackId;
+    @Value("${track1.name}")
+    private String trackName;
+    @Value("${track1.comments}")
+    private String trackComments;
+
+    @Autowired
+    private Environment environment;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent){
-        Track track1 = new Track(11, "Penne Penne", "A nice song");
-        Track track2 = new Track(12, "Kadhaley Kadhaley", "melody song");
-        Track track3 = new Track(13, "Karu", "opening song");
+        Track track1 = new Track(trackId, trackName, trackComments);
+        Track track2 = new Track(Integer.parseInt(environment.getProperty("track2.id")),
+                                environment.getProperty("track2.name"), environment.getProperty("track2.comments"));
         try{
             trackService.saveTrack(track1);
             trackService.saveTrack(track2);
-            trackService.saveTrack(track3);
         }catch (TrackAlreadyExistsException ex){
             ex.printStackTrace();
         }
