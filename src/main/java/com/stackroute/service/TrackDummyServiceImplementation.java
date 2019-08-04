@@ -3,10 +3,14 @@ package com.stackroute.service;
 import com.stackroute.domain.Track;
 import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.exception.TrackNotFoundException;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
+@Profile("dummy")
 public class TrackDummyServiceImplementation implements TrackService {
     @Override
     public Track saveTrack(Track track) throws TrackAlreadyExistsException {
