@@ -5,6 +5,8 @@ import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.exception.TrackNotFoundException;
 import com.stackroute.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +14,10 @@ import java.util.Optional;
 
 @Service
 //Used to mark a class as the service provider.
+@Primary
+//Used to specify this class is the primary bean when the conflict happens.
+@Qualifier("trackService")
+//Used to mention the qualifier name.
 public class TrackServiceImplementation implements TrackService {
     private TrackRepository trackRepository;
 

@@ -4,13 +4,21 @@ import com.stackroute.domain.Track;
 import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.service.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class overrides the onApplicationEvent() method to add the
+ * track details in h2 db.
+ */
 @Component
 public class ApplicationListenerSeedData implements ApplicationListener<ContextRefreshedEvent> {
+
+    @Qualifier("trackService")
+    //Used to particularly mention the bean name.
     private TrackService trackService;
 
     @Autowired

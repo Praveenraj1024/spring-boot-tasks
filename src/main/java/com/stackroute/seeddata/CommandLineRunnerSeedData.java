@@ -3,11 +3,17 @@ package com.stackroute.seeddata;
 import com.stackroute.domain.Track;
 import com.stackroute.repository.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class overrides the run() method to store the track details in h2 db.
+ */
 @Component
 public class CommandLineRunnerSeedData implements CommandLineRunner {
+    @Qualifier("trackService")
+    //Used to particularly mention the bean name.
     private TrackRepository trackRepository;
 
     @Autowired
