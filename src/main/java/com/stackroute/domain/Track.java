@@ -1,16 +1,14 @@
 package com.stackroute.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 /*
 Resource class, with its own properties and suitable setters, getters and constructors.
  */
-@Entity
-//Used to specify as resource or domain object will be mapped to database
-
+@Document
 @NoArgsConstructor
 //To create a constructor without any argument
 @AllArgsConstructor
