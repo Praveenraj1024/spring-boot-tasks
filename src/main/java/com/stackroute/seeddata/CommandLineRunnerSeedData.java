@@ -3,7 +3,6 @@ package com.stackroute.seeddata;
 import com.stackroute.domain.Track;
 import com.stackroute.repository.TrackRepository;
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;

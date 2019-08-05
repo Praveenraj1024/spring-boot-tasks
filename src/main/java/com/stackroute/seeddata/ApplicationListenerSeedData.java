@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * track details in h2 db.
  */
 @Component
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:application-prod.properties")
 //Used to specify the path of the resource file.
 public class ApplicationListenerSeedData implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -31,11 +31,11 @@ public class ApplicationListenerSeedData implements ApplicationListener<ContextR
         this.trackService = trackService;
     }
 
-    @Value("${track1.id}")
+    @Value("${track.id}")
     private int trackId;
-    @Value("${track1.name}")
+    @Value("${track.name}")
     private String trackName;
-    @Value("${track1.comments}")
+    @Value("${track.comments}")
     private String trackComments;
 
     @Autowired
@@ -44,11 +44,11 @@ public class ApplicationListenerSeedData implements ApplicationListener<ContextR
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent){
         Track track1 = new Track(trackId, trackName, trackComments);
-        Track track2 = new Track(Integer.parseInt(environment.getProperty("track2.id")),
-                                environment.getProperty("track2.name"), environment.getProperty("track2.comments"));
+//        Track track2 = new Track(Integer.parseInt(environment.getProperty("track2.id")),
+//                                environment.getProperty("track2.name"), environment.getProperty("track2.comments"));
         try{
             trackService.saveTrack(track1);
-            trackService.saveTrack(track2);
+//            trackService.saveTrack(track2);
         }catch (TrackAlreadyExistsException ex){
             ex.printStackTrace();
         }
