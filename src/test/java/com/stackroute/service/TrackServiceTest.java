@@ -96,6 +96,31 @@ public class TrackServiceTest {
     }
 
     @Test
+    public void givenIdShouldReturnUpdatedTrack() throws TrackNotFoundException {
+        when(trackRepository.existsById(track.getId())).thenReturn(true);
+        when(trackRepository.findById(track.getId())).thenReturn(Optional.of(track));
+        Track savedTrack = trackServiceImplementation.deleteTrackById(track.getId()).get();
+        Assert.assertEquals(track, savedTrack);
+    }
+
+    @Test
+    public void givenNameShouldReturnListOfTracks() throws TrackNotFoundException {
+        List<Track> trackList = new ArrayList<>();
+        trackList.add(track);
+        when(trackRepository.getTracksByName(track.getName())).thenReturn(trackList);
+        List<Track> actualTrackList = trackServiceImplementation.getTracksByName(track.getName());
+        Assert.assertEquals(trackList, actualTrackList);
+    }
+
+
+    @Test(expected = TrackNotFoundException.class)
+    public void givenNameShouldReturnException() throws TrackNotFoundException {
+        trackServiceImplementation.getTracksByName("yedho onnu");
+    }
+
+
+
+    @Test
     public void getAllUser() {
 
         trackRepository.save(track);
