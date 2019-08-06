@@ -13,32 +13,32 @@ import java.util.Optional;
 @Profile("dummy")
 public class TrackDummyServiceImplementation implements TrackService {
     @Override
-    public Track saveTrack(Track track) throws TrackAlreadyExistsException {
+    public Track saveTrack(Track track) throws TrackAlreadyExistsException, Exception {
         return null;
     }
 
     @Override
-    public Track getTrackById(int id) throws TrackNotFoundException {
+    public Track getTrackById(int id) throws TrackNotFoundException, Exception {
         return null;
     }
 
     @Override
-    public List<Track> getAllTracks() {
+    public List<Track> getAllTracks() throws Exception {
         return null;
     }
 
     @Override
-    public Optional<Track> deleteTrackById(int id) throws TrackNotFoundException {
+    public Optional<Track> deleteTrackById(int id) throws TrackNotFoundException, Exception {
         return Optional.empty();
     }
 
     @Override
-    public Track updateTrack(int id, Track track) throws TrackNotFoundException {
+    public Track updateTrack(int id, Track track) throws TrackNotFoundException, Exception {
         return null;
     }
 
     @Override
-    public List<Track> getTracksByName(String trackName) throws TrackNotFoundException {
+    public List<Track> getTracksByName(String trackName) throws TrackNotFoundException, Exception {
         return null;
     }
 }
