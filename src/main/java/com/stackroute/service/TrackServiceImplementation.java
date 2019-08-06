@@ -25,7 +25,7 @@ public class TrackServiceImplementation implements TrackService {
 
     @Override
     //Used to override the parent class method, and to notify the mistakes.
-    public Track saveTrack(Track track) throws TrackAlreadyExistsException {
+    public Track saveTrack(Track track) throws TrackAlreadyExistsException, Exception {
         if (trackRepository.existsById(track.getId())){
             throw new TrackAlreadyExistsException("A Track with the given id" +
                     " is already exist in db");
@@ -35,7 +35,7 @@ public class TrackServiceImplementation implements TrackService {
     }
 
     @Override
-    public Track getTrackById(int id) throws TrackNotFoundException {
+    public Track getTrackById(int id) throws TrackNotFoundException, Exception {
         if (trackRepository.existsById(id)){
             Track retrievedTrack = trackRepository.findById(id).get();
             return retrievedTrack;
@@ -44,13 +44,13 @@ public class TrackServiceImplementation implements TrackService {
     }
 
     @Override
-    public List<Track> getAllTracks(){
+    public List<Track> getAllTracks() throws Exception{
         List<Track> listTrack = trackRepository.findAll();
         return listTrack;
     }
 
     @Override
-    public Optional<Track> deleteTrackById(int id) throws TrackNotFoundException{
+    public Optional<Track> deleteTrackById(int id) throws TrackNotFoundException, Exception{
         if (trackRepository.existsById(id)){
             Optional<Track> retrievedTrack = trackRepository.findById(id);
             trackRepository.deleteById(id);
@@ -62,7 +62,7 @@ public class TrackServiceImplementation implements TrackService {
     }
 
     @Override
-    public Track updateTrack(int id, Track track) throws TrackNotFoundException{
+    public Track updateTrack(int id, Track track) throws TrackNotFoundException, Exception{
         if (trackRepository.existsById(id)) {
             Track trackBeforeUpdate = trackRepository.findById(id).get();
             track.setComments(track.getComments());
@@ -73,7 +73,7 @@ public class TrackServiceImplementation implements TrackService {
     }
 
     @Override
-    public List<Track> getTracksByName(String trackName) throws TrackNotFoundException{
+    public List<Track> getTracksByName(String trackName) throws TrackNotFoundException, Exception{
         List<Track> trackList = trackRepository.getTracksByName(trackName);
         if (trackList.isEmpty() || trackList == null){
             throw new TrackNotFoundException("Their is no track with the specified track name");
