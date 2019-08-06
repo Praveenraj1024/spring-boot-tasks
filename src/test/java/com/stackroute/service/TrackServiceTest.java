@@ -121,7 +121,7 @@ public class TrackServiceTest {
 
 
     @Test
-    public void getAllUser() {
+    public void getAllUser() throws Exception{
 
         trackRepository.save(track);
         //stubbing the mock to return specific data

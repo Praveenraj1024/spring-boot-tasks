@@ -44,7 +44,7 @@ public class TrackServiceImplementation implements TrackService {
     }
 
     @Override
-    public List<Track> getAllTracks(){
+    public List<Track> getAllTracks() throws Exception{
         List<Track> listTrack = trackRepository.findAll();
         return listTrack;
     }

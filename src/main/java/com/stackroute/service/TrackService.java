@@ -23,7 +23,7 @@ public interface TrackService {
     /**
      * @return returns all tracks in list.
      */
-    public List<Track> getAllTracks();
+    public List<Track> getAllTracks() throws Exception;
 
     /**
      * @param id stores the track id which we want to delete,
