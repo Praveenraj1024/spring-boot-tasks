@@ -14,10 +14,16 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
+*.xml
 .idea
 *.iws
 *.iml
 *.ipr
+*.cmd
+mvnw
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/MavenWrapperDownloader.java
 
 ### NetBeans ###
 /nbproject/private/
