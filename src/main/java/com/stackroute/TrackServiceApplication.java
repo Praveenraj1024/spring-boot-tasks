@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication
 //Used to specify the starting point of the project.
 //It triggers the auto-configuration, component scanning, bean creations.
-@PropertySource("application.properties")
+@PropertySource("classpath:application.properties")
 public class TrackServiceApplication {
 
 	public static void main(String[] args) {

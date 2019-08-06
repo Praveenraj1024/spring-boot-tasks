@@ -1,4 +1,4 @@
-package com.stackroute.trackservice;
+package com.stackroute;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
