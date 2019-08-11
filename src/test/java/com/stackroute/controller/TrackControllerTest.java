@@ -6,6 +6,7 @@ import com.stackroute.exception.GlobalException;
 import com.stackroute.exception.TrackAlreadyExistsException;
 import com.stackroute.exception.TrackNotFoundException;
 import com.stackroute.service.TrackService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +29,7 @@ import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest
@@ -58,6 +59,12 @@ public class TrackControllerTest {
         list.add(track);
     }
 
+    @After
+    public void tearDown() {
+        track = null;
+        list = null;
+    }
+
     @Test
     public void givenUrlShouldReturnTheTrack() throws Exception {
         when(trackService.saveTrack(any())).thenReturn(track);
@@ -65,6 +72,8 @@ public class TrackControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andDo(MockMvcResultHandlers.print());
+
+        verify(trackService, times(1)).saveTrack(track);
 
 
     }
@@ -85,6 +94,7 @@ public class TrackControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
+        verify(trackService, times(1)).getAllTracks();
 
     }
 
@@ -105,6 +115,7 @@ public class TrackControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isFound())
                 .andDo(MockMvcResultHandlers.print());
+        verify(trackService, times(1)).getTrackById(track.getId());
     }
 
     @Test
@@ -124,6 +135,7 @@ public class TrackControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
+        verify(trackService, times(1)).deleteTrackById(track.getId());
     }
 
     @Test
@@ -143,6 +155,7 @@ public class TrackControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isFound())
                 .andDo(MockMvcResultHandlers.print());
+        verify(trackService, times(1)).getTracksByName(track.getName());
     }
 
     @Test

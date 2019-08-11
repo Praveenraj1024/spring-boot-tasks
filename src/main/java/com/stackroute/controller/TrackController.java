@@ -55,7 +55,7 @@ public class TrackController {
     @GetMapping("track")
     public ResponseEntity<?> getAllTrack() throws Exception{
         List<Track> trackList = trackService.getAllTracks();
-        return new ResponseEntity<>(trackList, HttpStatus.OK);
+        return new ResponseEntity<>(trackList, HttpStatus.FOUND);
     }
 
     /**
@@ -63,7 +63,7 @@ public class TrackController {
      * @return the response entity with track object or null.
      */
     @DeleteMapping("track/{id}")
-    public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) throws TrackNotFoundException {
+    public ResponseEntity<?> deleteTrackById(@PathVariable("id") int id) throws TrackNotFoundException{
         //Used to extract the data from query parameter.
         //Returns the User object as the response for the given request.
         Optional<Track> optionalTrack = trackService.deleteTrackById(id);
@@ -76,7 +76,7 @@ public class TrackController {
      * @return the response entity with the updated track.
      */
     @PutMapping("track/{id}")
-    public ResponseEntity<?> updateTrackById(@PathVariable int id, @RequestBody Track track) throws TrackNotFoundException {
+    public ResponseEntity<?> updateTrackById(@PathVariable int id, @RequestBody Track track) throws TrackNotFoundException{
         Track updatedTrack = trackService.updateTrack(id, track);
         return new ResponseEntity<>(updatedTrack, HttpStatus.OK);
 
@@ -87,7 +87,7 @@ public class TrackController {
      * @return the response with selected track list.
      */
     @GetMapping("tracks/{name}")
-    public ResponseEntity<?> getTrackByName(@PathVariable String name) throws TrackNotFoundException {
+    public ResponseEntity<?> getTrackByName(@PathVariable String name) throws TrackNotFoundException{
         List<Track> trackList = trackService.getTracksByName(name);
         return new ResponseEntity<>(trackList, HttpStatus.FOUND);
     }

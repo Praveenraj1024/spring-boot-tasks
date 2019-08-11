@@ -21,8 +21,8 @@ import static org.junit.Assert.*;
 public class TrackRepositoryTest {
 
     @Autowired
-    TrackRepository trackRepository;
-    Track track;
+    private TrackRepository trackRepository;
+    private Track track;
 
     @Before
     public void setUp() {
@@ -36,6 +36,7 @@ public class TrackRepositoryTest {
     @After
     public void tearDown(){
         trackRepository.deleteAll();
+        track = null;
     }
 
 
@@ -86,6 +87,26 @@ public class TrackRepositoryTest {
         assertEquals(testTrack, trackRepository.findById(testTrack.getId()).get());
 
     }
+
+    @Test
+    public void givenTrackAndTrackIdShouldDeleteTrackAndReturnFalse() {
+        Track testTrack = new Track(110,"kokku para para", "Intro song");
+        trackRepository.delete(testTrack);
+        assertFalse(trackRepository.existsById(testTrack.getId()));
+
+    }
+
+    @Test
+    public void givenTrackAndTrackIdShouldDeleteTrackAndNotReturnFalse() {
+        Track testTrack = new Track(110,"kokku para para", "Intro song");
+        Track anotherTestTrack = new Track(111,"kokku para para", "Intro song");
+        trackRepository.delete(testTrack);
+        assertTrue(trackRepository.existsById(anotherTestTrack.getId()));
+
+    }
+
+
+
 
 
 
