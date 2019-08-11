@@ -88,6 +88,15 @@ public class TrackControllerTest {
     }
 
     @Test
+    public void givenUrlAndTrackShouldReturnServerException() throws TrackAlreadyExistsException, Exception {
+        when(trackService.saveTrack(any())).thenThrow(Exception.class);
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/track")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
     public void givenUrlShouldReturnListOfTracks() throws Exception {
         when(trackService.getAllTracks()).thenReturn(list);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track")
@@ -127,6 +136,15 @@ public class TrackControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
+    @Test
+    public void givenUrlWithIdShouldReturnServerException() throws TrackNotFoundException, Exception {
+        when(trackService.getTrackById(anyInt())).thenThrow(Exception.class);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/track/116")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
 
     @Test
     public void givenUrlWithIdShouldReturnDeletedTrack() throws TrackNotFoundException, Exception {
@@ -149,6 +167,15 @@ public class TrackControllerTest {
 
 
     @Test
+    public void givenUrlWithIdShouldReturnTheServerException() throws TrackNotFoundException, Exception {
+        when(trackService.deleteTrackById(anyInt())).thenThrow(Exception.class);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/track/116")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
     public void givenUrlWithNameShouldReturnTrack() throws TrackNotFoundException, Exception {
         when(trackService.getTracksByName(any())).thenReturn(list);
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/tracks/kanne")
@@ -165,6 +192,47 @@ public class TrackControllerTest {
                 .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
                 .andExpect(MockMvcResultMatchers.status().isNotFound())
                 .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void givenUrlWithNameShouldReturnServerException() throws TrackNotFoundException, Exception {
+        when(trackService.getTracksByName(any())).thenThrow(Exception.class);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/tracks/yedho onnu solluvom")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+
+    @Test
+    public void givenUrlAndTrackShouldReturnUpdatedTrack() throws TrackNotFoundException, Exception {
+        when(trackService.updateTrack(any())).thenReturn(track);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/track/")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
+    @Test
+    public void givenUrlAndTrackShouldReturnTrackNotFoundException() throws TrackNotFoundException, Exception {
+        when(trackService.updateTrack(any())).thenThrow(TrackNotFoundException.class);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/track/")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
+
+    @Test
+    public void givenUrlAndTrackShouldReturnTheServerException() throws TrackNotFoundException, Exception {
+        when(trackService.updateTrack(any())).thenThrow(Exception.class);
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/track/")
+                .contentType(MediaType.APPLICATION_JSON).content(asJsonString(track)))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
+                .andDo(MockMvcResultHandlers.print());
+
     }
 
 
