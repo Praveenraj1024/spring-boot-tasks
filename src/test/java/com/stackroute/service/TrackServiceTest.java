@@ -55,7 +55,7 @@ public class TrackServiceTest {
     }
 
     @Test
-    public void givenTrackShouldSavedAndReturnTheSameTrack() throws TrackAlreadyExistsException {
+    public void givenTrackShouldSavedAndReturnTheSameTrack() throws TrackAlreadyExistsException, Exception {
 
         when(trackRepository.save((Track) any())).thenReturn(track);
         when(trackRepository.existsById(track.getId())).thenReturn(false);
@@ -70,7 +70,7 @@ public class TrackServiceTest {
     }
 
     @Test(expected = TrackAlreadyExistsException.class)
-    public void givenTrackAndTrackIdShouldReturnException() throws TrackAlreadyExistsException {
+    public void givenTrackAndTrackIdShouldReturnException() throws TrackAlreadyExistsException, Exception {
         trackRepository.save(track);
         when(trackRepository.existsById(track.getId())).thenReturn(true);
         Track savedTrack = trackServiceImplementation.saveTrack(track);
@@ -84,7 +84,7 @@ public class TrackServiceTest {
     }
 
     @Test
-    public void givenTrackIdShouldReturnTrack() throws TrackNotFoundException {
+    public void givenTrackIdShouldReturnTrack() throws TrackNotFoundException, Exception {
         when(trackRepository.existsById(track.getId())).thenReturn(true);
         when(trackRepository.findById(track.getId())).thenReturn(Optional.of(track));
         Track savedTrack = trackServiceImplementation.getTrackById(track.getId());
@@ -92,14 +92,14 @@ public class TrackServiceTest {
     }
 
     @Test(expected = TrackNotFoundException.class)
-    public void givenTrackIdShouldReturnException() throws TrackNotFoundException {
+    public void givenTrackIdShouldReturnException() throws TrackNotFoundException, Exception {
         Track savedTrack = trackServiceImplementation.getTrackById(track.getId());
         trackServiceImplementation.deleteTrackById(track.getId());
-        trackServiceImplementation.updateTrack(track.getId(), track);
+        trackServiceImplementation.updateTrack(track);
     }
 
     @Test
-    public void givenTrackIdShouldReturnDeletedTrack() throws TrackNotFoundException {
+    public void givenTrackIdShouldReturnDeletedTrack() throws TrackNotFoundException, Exception {
         when(trackRepository.existsById(track.getId())).thenReturn(true);
         when(trackRepository.findById(track.getId())).thenReturn(Optional.of(track));
         Track savedTrack = trackServiceImplementation.deleteTrackById(track.getId()).get();
@@ -107,7 +107,7 @@ public class TrackServiceTest {
     }
 
     @Test
-    public void givenTrackIdShouldReturnUpdatedTrack() throws TrackNotFoundException {
+    public void givenTrackIdShouldReturnUpdatedTrack() throws TrackNotFoundException, Exception {
         when(trackRepository.existsById(track.getId())).thenReturn(true);
         when(trackRepository.findById(track.getId())).thenReturn(Optional.of(track));
         Track savedTrack = trackServiceImplementation.deleteTrackById(track.getId()).get();
@@ -115,7 +115,7 @@ public class TrackServiceTest {
     }
 
     @Test
-    public void givenTrackNameShouldReturnListOfTracks() throws TrackNotFoundException {
+    public void givenTrackNameShouldReturnListOfTracks() throws TrackNotFoundException, Exception {
         List<Track> trackList = new ArrayList<>();
         trackList.add(track);
         when(trackRepository.getTracksByName(track.getName())).thenReturn(trackList);
@@ -125,7 +125,7 @@ public class TrackServiceTest {
 
 
     @Test(expected = TrackNotFoundException.class)
-    public void givenTrackNameShouldReturnException() throws TrackNotFoundException {
+    public void givenTrackNameShouldReturnException() throws TrackNotFoundException, Exception {
         trackServiceImplementation.getTracksByName("yedho onnu");
     }
 
