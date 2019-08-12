@@ -51,6 +51,8 @@ public class ApplicationListenerSeedData implements ApplicationListener<ContextR
 //            trackService.saveTrack(track2);
         }catch (TrackAlreadyExistsException ex){
             ex.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
