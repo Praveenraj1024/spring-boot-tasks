@@ -44,11 +44,8 @@ public class ApplicationListenerSeedData implements ApplicationListener<ContextR
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent){
         Track track1 = new Track(trackId, trackName, trackComments);
-//        Track track2 = new Track(Integer.parseInt(environment.getProperty("track2.id")),
-//                                environment.getProperty("track2.name"), environment.getProperty("track2.comments"));
         try{
             trackService.saveTrack(track1);
-//            trackService.saveTrack(track2);
         }catch (TrackAlreadyExistsException ex){
             ex.printStackTrace();
         }catch (Exception e){
